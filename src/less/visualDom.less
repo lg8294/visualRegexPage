@@ -1,14 +1,15 @@
 .vr_root {
-
   color: #566270;
   white-space: nowrap;
+  display: block;
+  margin-bottom: 20px;
+  text-align: center;
 
   span {
     display: inline-block;
     //margin: 0 1px;
     border: 1px solid transparent;
   }
-
 
   .vr_either {
     color: rgba(210, 85, 101, 1);
@@ -40,10 +41,11 @@
   }
 
   // 第二层分组 margin 3px, 第三层往后不设置(默认的 span 1px)
-  .vr_groupWrapper, .vr_lookaroundWrapper {
-
+  .vr_groupWrapper,
+  .vr_lookaroundWrapper {
     // 第二层
-    .vr_groupWrapper, .vr_lookaroundWrapper {
+    .vr_groupWrapper,
+    .vr_lookaroundWrapper {
       margin: 0 5px;
 
       + .vr_closure {
@@ -61,7 +63,8 @@
       }
 
       // 第三层
-      .vr_groupWrapper, .vr_lookaroundWrapper {
+      .vr_groupWrapper,
+      .vr_lookaroundWrapper {
         margin: 0 1px;
 
         + .vr_either {
@@ -69,24 +72,25 @@
         }
       }
     }
-
   }
 
-
-  .vr_groupWrapper, .vr_lookaroundWrapper {
-    .vr_groupWrapper, .vr_lookaroundWrapper {
+  .vr_groupWrapper,
+  .vr_lookaroundWrapper {
+    .vr_groupWrapper,
+    .vr_lookaroundWrapper {
       background-color: #e9ecef;
 
-      .vr_groupWrapper, .vr_lookaroundWrapper {
-        background-color: rgba(144, 224, 239, .5);
+      .vr_groupWrapper,
+      .vr_lookaroundWrapper {
+        background-color: rgba(144, 224, 239, 0.5);
 
-        .vr_groupWrapper, .vr_lookaroundWrapper {
-          background-color: rgba(254, 197, 187, .7);
+        .vr_groupWrapper,
+        .vr_lookaroundWrapper {
+          background-color: rgba(254, 197, 187, 0.7);
         }
       }
     }
   }
-
 
   .vr_normalGroup,
   .vr_nonCaptureGroup,
@@ -97,7 +101,6 @@
   .vr_negativeLookbehind {
     color: rgba(0, 0, 205, 1);
   }
-
 
   .vr_literal {
     color: #6c757d;
@@ -123,13 +126,11 @@
   }
 
   .vr_specialSet {
-
   }
 
   .vr_boundary {
     color: rgb(127, 15, 126);
   }
-
 
   .vr_backRef {
     color: rgba(192, 192, 192, 1);
@@ -144,5 +145,4 @@
   .vr_nonGreedyClosure {
     color: #cb7575;
   }
-
 }

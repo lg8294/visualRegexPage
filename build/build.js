@@ -11,10 +11,12 @@ webpack(config, (err, stats) => {
     }
 
     const json = getJson();
-    const htmlpath = path.join(__dirname, '../dist/index.html');
+    const htmlpath = config.output.path+'/index.html';
     let html = fs.readFileSync(htmlpath, 'utf8');
     html = html.replaceAll(/class="(.+?)"/g, (match, names) => {
+        console.log(match,names);
         let classnames = names.split(/\s+/).map(n => json[n] || n).join(' ');
+        console.log(classnames);
         return `class="${classnames}"`
     });
     fs.writeFileSync(htmlpath, html);
