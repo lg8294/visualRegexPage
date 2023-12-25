@@ -21,7 +21,11 @@ body {
   -webkit-overflow-scrolling: touch; //流畅滚动
 }
 
-a, a:visited, a:hover, a:active, abbr {
+a,
+a:visited,
+a:hover,
+a:active,
+abbr {
   color: inherit;
   text-decoration: none;
 }
@@ -40,14 +44,28 @@ button {
   }
 }
 
-a, input, button, textarea, select, [contenteditable], optgroup {
+a,
+input,
+button,
+textarea,
+select,
+[contenteditable],
+optgroup {
   outline: none;
   color: inherit;
   font-size: inherit;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*去掉a、input和button点击时的蓝色外边框和灰色半透明背景*/
+  -webkit-tap-highlight-color: rgba(
+    0,
+    0,
+    0,
+    0
+  ); /*去掉a、input和button点击时的蓝色外边框和灰色半透明背景*/
 }
 
-ul, li, div, aside {
+ul,
+li,
+div,
+aside {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -60,7 +78,12 @@ table {
   border-spacing: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: normal;
   font-size: inherit;
   cursor: default;
@@ -71,27 +94,33 @@ textarea {
   font-family: @fontFamily;
 }
 
-input, textarea, div, p {
+input,
+textarea,
+div,
+p {
   word-break: break-all;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 
-select{
+select {
   &:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 @htmlColor;
   }
 }
 
-label, input[type="radio"], input[type="checkbox"] {
+label,
+input[type="radio"],
+input[type="checkbox"] {
   cursor: pointer;
   user-select: none;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   @width: 14px;
   @height: 14px;
 
@@ -100,7 +129,7 @@ input[type=checkbox] {
     position: relative;
     padding-left: @width+8px;
     &:before {
-      content: '';
+      content: "";
       height: @width;
       width: @height;
       display: inline-block;
@@ -110,7 +139,7 @@ input[type=checkbox] {
       top: 50%;
       margin-top: @height * -0.5;
       border-radius: 2px;
-      border: 1px solid #d9d9d9
+      border: 1px solid #d9d9d9;
     }
   }
 
@@ -121,10 +150,10 @@ input[type=checkbox] {
       background-color: @green;
       border-color: @green;
 
-      animation: checkboxEffect .4s ease;
+      animation: checkboxEffect 0.4s ease;
     }
     &:after {
-      content: '';
+      content: "";
       width: 8px;
       height: 4px;
       display: inline-block;
@@ -146,16 +175,10 @@ input[type=checkbox] {
   }
   50% {
     transform: scale(1.2);
-    opacity: .7;
+    opacity: 0.7;
   }
   100% {
     transform: scale(1);
     opacity: 1;
   }
 }
-
-
-
-
-
-

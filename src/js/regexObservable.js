@@ -10,11 +10,11 @@ import {debounceTime} from 'rxjs/internal/operators/debounceTime';
 import {distinctUntilChanged} from 'rxjs/internal/operators/distinctUntilChanged';
 import {publishBehavior} from 'rxjs/internal/operators/publishBehavior';
 import {refCount} from 'rxjs/internal/operators/refCount';
-import predefinedRegs from "./predefined";
-import {getInitHash} from './hash';
-import {isPc} from "./constant";
-import log from './log';
-import cls from '../less/index.js';
+import predefinedRegs from "./predefined.js";
+import {getInitHash} from './hash.js';
+import {isPc} from "./constant.js";
+import log from './log.js';
+import cls from "../less/index.module.less";
 
 
 var $sourceCtl = $('#regexSource');

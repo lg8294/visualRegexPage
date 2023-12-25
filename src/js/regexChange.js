@@ -9,19 +9,20 @@ import { debounceTime } from "rxjs/internal/operators/debounceTime";
 import { distinctUntilChanged } from "rxjs/internal/operators/distinctUntilChanged";
 import { first } from "rxjs/internal/operators/first";
 
-import { getInitHash, setHash } from "./hash";
-import { regexChanged } from "./regexObservable";
+import { getInitHash, setHash } from "./hash.js";
+import { regexChanged } from "./regexObservable.js";
 
-import cls from "../less/index.js";
+import cls from "../less/index.module.less";
 
 import hljs from "highlight.js/lib/common";
-import jsonCss from "highlight.js/styles/default.css";
+import "highlight.js/styles/default.css";
 import visualRegex from "visual-regex";
-import matcher from "./matcher";
+import matcher from "./matcher.js";
 import { htmlEncode } from "relax-utils";
-import log from "./log";
+import log from "./log.js";
+import languages from "highlight.js/lib/languages/json";
 
-hljs.registerLanguage("json", require("highlight.js/lib/languages/json"));
+hljs.registerLanguage("json", languages);
 
 function visual(reg) {
   const v = visualRegex(reg);
@@ -170,3 +171,5 @@ combineLatest([
   hljs.highlightElement($logOutput[0]);
   // hljs.highlightBlock($logOutput[0]);
 });
+
+export default {}

@@ -1,9 +1,16 @@
-import cls from "../less/index.js";
+// import cls from "../less/index.js";
+import "../less/common.less";
+import "../less/aside.less";
+import "../less/nav.less";
+import "../less/asideBtn.less";
+import "../less/visualDom.less";
+import cls from "../less/index.module.less";
 import $ from "relax-dom";
 import { isIE } from "relax-utils";
-import { isPc } from "./constant";
-import regexChange from "./regexChange";
+import { isPc } from "./constant.js";
+import regexChange from "./regexChange.js";
 
+console.log(cls);
 var $body = $(document.body);
 
 if (isIE()) {

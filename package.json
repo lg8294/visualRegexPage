@@ -2,30 +2,17 @@
   "name": "visual-regex-page",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "npm run dev",
-    "dev": "NODE_ENV=development webpack serve --config ./build/webpack.config.js",
-    "build": "NODE_ENV=production node build/build.js",
-    "stat": "NODE_ENV=production webpack --config ./build/webpack.config.js --profile --json > stats.json",
-    "analyzer": "NODE_ENV=production webpack --config ./build/webpack.analyzer.config.js"
-  },
-  "author": "wwl",
+  "author": "lg",
   "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "devDependencies": {
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.8.1",
-    "css-minimizer-webpack-plugin": "^5.0.1",
-    "html-webpack-plugin": "^5.3.1",
-    "less": "^4.1.1",
-    "less-loader": "^11.1.1",
-    "mini-css-extract-plugin": "^2.7.6",
-    "relax-hash": "^2.0.7",
-    "style-loader": "^3.3.3",
-    "webpack": "^5.26.3",
-    "webpack-bundle-analyzer": "^4.4.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "4.15.1"
+    "less": "^4.2.0",
+    "vite": "^5.0.8"
   },
   "dependencies": {
     "highlight.js": "^11.9.0",
