@@ -1,3 +1,7 @@
+const __DEV__ = import.meta.env.DEV;
+
 export default function (...args) {
-    return console.log('[vr]', ...args);
+    if (__DEV__) {
+        return console.log('[vr]', ...args);
+    }
 }

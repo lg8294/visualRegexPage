@@ -1,13 +1,44 @@
 @import "./util.less";
 
+// ============ 动画定义 ============
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .pageMain {
   margin-top: @navHeight;
   margin-left: 0;
   position: relative;
   min-height: 300px;
   min-width: 800px;
-  padding: 20px;
+  padding: @space-5;
   transition: margin-left 0.3s ease-out;
+
+  @media screen and (max-width: @mobileWidth) {
+    padding: @space-4;
+    min-width: unset;
+  }
+}
+
+// 导出 showAside 类名供 JS 使用
+.showAside {
+  content: "";
 }
 
 body.showAside {
@@ -24,26 +55,36 @@ body.showAside {
   display: flex;
 }
 
+// ============ 表单控件 ============
 .formCtl {
   position: relative;
   width: 100%;
-  height: 46px;
-  line-height: 44px;
-  margin-bottom: 30px;
+  height: 48px;
+  line-height: 46px;
+  margin-bottom: @space-8;
   border: 1px solid @borderColor;
-  border-radius: 5px;
-
+  border-radius: @radius-md;
   transition: border-color 0.3s, box-shadow 0.3s;
 
   &.rightItem {
     width: 400px;
+
+    @media screen and (max-width: @mobileWidth) {
+      width: 100%;
+    }
   }
+
   &.error {
     border-color: @errorColor;
-    box-shadow: 0 0 0 2px rgba(240, 65, 52, 0.2);
+    background-color: @errorBg;
+    box-shadow: 0 0 0 3px rgba(244, 110, 101, 0.15);
 
     .formTitle {
       color: @errorColor;
+    }
+
+    .formErrorTip {
+      animation: fadeSlideIn 0.3s ease;
     }
   }
 
@@ -52,15 +93,15 @@ body.showAside {
     width: 100%;
     left: 0;
     top: 100%;
-    margin-top: 3px;
-    font-size: 12px;
-    line-height: 12px;
+    margin-top: @space-1;
+    font-size: @fontSize-sm;
+    line-height: @fontSize-sm;
     color: @errorColor;
   }
 
   &.miniTitle {
     .formTitle {
-      transform: translate(5px, -6px) scale(0.75);
+      transform: translate(12px, -8px) scale(0.75);
     }
   }
 
@@ -68,48 +109,64 @@ body.showAside {
     position: absolute;
     left: 0;
     top: 0;
-    transform: translate(15px, 14px);
+    transform: translate(18px, 16px);
+    font-size: @fontSize-md;
+    height: @fontSize-md;
+    line-height: @fontSize-md;
+    color: @text-muted;
+    padding: 0 @space-1;
+    background-color: var(--bg-primary);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.25s ease;
+    pointer-events: none;
+  }
 
-    font-size: 16px;
-    height: 16px;
-    line-height: 16px;
+  &:focus-within {
+    border-color: @green;
+    box-shadow: 0 0 0 3px @green-100;
 
-    color: #999;
-    padding: 0 4px;
-    background-color: #fff;
-    transition: transform 0.3s ease-out;
+    .formTitle {
+      transform: translate(12px, -8px) scale(0.75);
+      color: @green;
+    }
   }
 
   .formInput {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 5px;
-    padding-left: 18px;
+    border-radius: @radius-md;
+    padding-left: @space-5;
   }
 
   .formChb {
-    margin-left: 18px;
+    margin-left: @space-5;
     display: inline-block;
-
-    // label {
-    //   padding-left: 5px;
-    // }
   }
 }
 
+// ============ 正则可视化区 ============
 .figure {
   min-height: 50px;
-  padding: 20px;
-  // border-bottom: 1px solid @borderColor;
+  padding: @space-6;
   position: relative;
   overflow: auto;
-  margin-left: -20px;
-  margin-right: -20px;
+  margin-left: -@space-5;
+  margin-right: -@space-5;
   transition: opacity 0.3s;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-radius: @radius-lg;
+
+  // 移动端横向滚动支持
+  @media screen and (max-width: @mobileWidth) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
 
   &.error {
     opacity: 0.1;
+    animation: pulse 1.5s ease-in-out infinite;
   }
 
   canvas {
@@ -119,21 +176,23 @@ body.showAside {
   }
 }
 
+// ============ 测试结果区 ============
 .log {
-  padding: 20px 0;
+  padding: @space-5 0;
   line-height: 1.5em;
   overflow: auto;
 
   p {
     white-space: nowrap;
     line-height: 1.5em;
-    margin-bottom: 5px;
+    margin-bottom: @space-2;
   }
 
   .logSelectWrap {
     position: relative;
     display: inline-block;
     border: 1px solid @borderColor;
+    border-radius: @radius-sm;
     cursor: pointer;
 
     &:after {
@@ -145,17 +204,16 @@ body.showAside {
       border: 1px solid @borderColor;
       border-bottom: none;
       border-left: none;
-      top: 5px;
-      right: 5px;
-      transform: translate(0, 0) rotate(135deg);
+      top: 6px;
+      right: 8px;
+      transform: rotate(135deg);
       transition: transform 0.6s, border-color 0.6s;
       pointer-events: none;
     }
 
     &:hover {
-      //border-color: @green1;
       &:after {
-        border-color: @green1;
+        border-color: @green;
         transform: translate(0, 2px) rotate(135deg);
       }
     }
@@ -169,7 +227,7 @@ body.showAside {
     box-sizing: content-box;
     .appearance(none);
     padding-right: 30px;
-    padding-left: 5px;
+    padding-left: @space-2;
     cursor: pointer;
   }
 
@@ -194,15 +252,12 @@ body.showAside {
     min-width: 100px;
     min-height: 1em;
     position: relative;
-
     border: 1px solid @borderColor;
     box-sizing: content-box;
 
-    //letter-spacing: 1px;
-
     .fontStyle() {
       display: inline-block;
-      font-size: 14px;
+      font-size: @fontSize-base;
       line-height: 1.5em;
       letter-spacing: 0;
     }
@@ -214,7 +269,6 @@ body.showAside {
 
     textarea {
       .fontStyle();
-
       position: absolute;
       height: 100%;
       width: 100%;
@@ -222,6 +276,12 @@ body.showAside {
       top: 0;
       left: 0;
       overflow: hidden;
+
+      // 移动端增加高度
+      @media screen and (max-width: @mobileWidth) {
+        height: 80px;
+        min-height: 80px;
+      }
     }
   }
 
@@ -240,44 +300,78 @@ body.showAside {
     width: 100px;
     position: relative;
     border: 1px solid @borderColor;
+    border-radius: @radius-sm;
   }
 
   .logOutput {
     border: 1px solid @borderColor;
-    border-radius: 5px;
+    border-radius: @radius-md;
     min-height: 2em;
-    padding: 5px;
-    margin-top: 0.5em;
+    padding: @space-3;
+    margin-top: @space-2;
+    animation: fadeSlideIn 0.35s ease;
   }
 }
 
+// ============ 复制按钮 ============
+.copyRegexBtn {
+  display: inline-block;
+  margin-left: @space-2;
+  padding: 2px 6px;
+  font-size: @fontSize-sm;
+  border: 1px solid @borderColor;
+  border-radius: @radius-sm;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+
+  &:hover {
+    background: var(--green-100);
+    border-color: @green;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// ============ Fieldset 卡片 ============
 .fieldset {
   border: 1px solid @borderColor;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: @radius-lg;
+  padding: @space-5 @space-6;
   position: relative;
   line-height: 1.5em;
-  margin-bottom: 20px;
+  margin-bottom: @space-5;
+  background-color: var(--bg-primary);
+  box-shadow: @shadow-sm;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: @shadow-md;
+  }
 
   h2 {
-    color: #999;
+    color: @text-secondary;
     position: absolute;
-
-    padding: 0 4px;
-    background-color: #fff;
-
-    font-size: 16px;
-    height: 16px;
-    line-height: 16px;
-
+    padding: 0 @space-2;
+    background-color: var(--bg-primary);
+    font-size: @fontSize-sm;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    height: @fontSize-sm;
+    line-height: @fontSize-sm;
     left: 0;
     top: 0;
-    transform: translate(5px, -6px) scale(0.75);
+    transform: translate(12px, -6px) scale(1);
   }
 }
 
+// ============ 语法帮助区 ============
 .syntax {
-  padding: 20px 0;
+  padding: @space-5 0;
   .clearFix();
 
   ul {
@@ -294,23 +388,43 @@ body.showAside {
       line-height: 1.5em;
       display: flex;
       position: relative;
-      transition: all 0.3s;
-
-      cursor: default;
-
+      transition: all 0.25s ease;
+      cursor: pointer;
       border-left: 2px solid transparent;
       transform-origin: 0 50%;
       flex-flow: nowrap;
+      user-select: none;
 
       &:hover {
-        border-color: @green1;
-        transform: scale(1.1);
+        border-color: @green;
+        padding-left: @space-4;
+        transform: translateX(4px);
+
+        .key {
+          color: @green-600;
+        }
+      }
+
+      &:active {
+        transform: scale(0.98) translateX(4px);
+        background-color: var(--green-50);
+      }
+
+      &.copied {
+        background-color: var(--green-100);
+
+        .key {
+          color: var(--green-700);
+        }
       }
 
       .key {
-        padding-left: 20px;
+        padding-left: @space-5;
         width: 120px;
         flex-basis: 120px;
+        color: @green;
+        font-weight: 500;
+        transition: color 0.25s ease;
       }
 
       .desc {
@@ -318,14 +432,15 @@ body.showAside {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        color: @text-secondary;
       }
     }
   }
 }
 
 .note {
-  color: #999;
-  font-size: 12px;
+  color: @text-muted;
+  font-size: @fontSize-sm;
 
   a {
     text-decoration: underline;
@@ -341,12 +456,12 @@ a.regexLink {
   text-align: center;
   border-radius: 50%;
   position: absolute;
-  right: 18px;
+  right: @space-5;
   top: 50%;
   transform: translateY(-50%);
   color: #666;
 
   @media screen and (max-width: @mobileWidth) {
-    right: 5px;
+    right: @space-2;
   }
 }

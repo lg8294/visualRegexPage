@@ -3,10 +3,17 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "./",
-  // build: {
-  //   // sourcemap: true,
-  //   outDir: "visual-regex",
-  // },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'highlight': ['highlight.js'],
+          'rxjs': ['rxjs'],
+          'visual-regex': ['visual-regex'],
+        }
+      }
+    }
+  },
   css: {
     modules: {
       //  localsConvention: 'camelCaseOnly',

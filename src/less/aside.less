@@ -2,11 +2,10 @@
 
 .pageAside {
   position: fixed;
-  // width: @asideWidth;
   height: 100%;
   left: 0;
   top: 0;
-  background-color: @green2;
+  background: linear-gradient(180deg, var(--sidebar-bg) 0%, #171b22 100%);
   overflow: auto;
   overflow-x: visible;
   color: #fff;
@@ -18,17 +17,21 @@
     position: sticky;
     z-index: 1;
     height: @navHeight;
-    background-color: @green2;
+    background: linear-gradient(180deg, var(--sidebar-bg) 0%, #171b22 100%);
     top: 0;
     left: 0;
   }
 
   ul {
     li {
-      padding-left: 15px;
+      padding: @space-3 @space-4;
+      padding-left: @space-5;
       border-left: 3px solid transparent;
-      line-height: 2em;
+      border-radius: @radius-sm;
+      line-height: 1.5em;
       cursor: pointer;
+      transition: all 0.25s ease;
+      margin: @space-1 @space-2;
 
       span {
         display: inline-block;
@@ -36,12 +39,12 @@
       }
 
       &:hover {
-        background-color: @green3;
+        background-color: @sidebar-hover;
         border-color: @green;
+        padding-left: @space-6;
       }
     }
   }
-
 }
 
 .pageAsideCover {
@@ -59,9 +62,21 @@
 @media screen and (max-width: @mobileWidth) {
 
   .pageAside {
-    // width: 85%;
     border-top: @navHeight solid transparent;
     padding-top: 0;
+    padding-bottom: calc(@space-4 + env(safe-area-inset-bottom));
+    // 底部手势条提示
+    &::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      margin: @space-4 auto;
+      position: relative;
+      top: @space-2;
+    }
 
     .pageAsideSticky {
       display: none;
@@ -76,7 +91,16 @@
 }
 
 body.showAside .pageAside{
-  transform: translate3d(0, 0, 0);
+  transform: none;
 }
 
+// 深色模式适配
+@media (prefers-color-scheme: dark) {
+  .pageAside {
+    background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0d1117 100%);
 
+    .pageAsideSticky {
+      background: linear-gradient(180deg, var(--sidebar-bg) 0%, #0d1117 100%);
+    }
+  }
+}

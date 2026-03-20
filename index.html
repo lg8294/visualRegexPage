@@ -4,8 +4,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
 
   <title>正则表达式可视化-Visual Regexp：在线测试、学习、构建正则表达式</title>
   <meta name="keywords" content="正则表达式,正则可视化,正则,在线,visual,regexp,regular,expression,常用正则,正则图解,正则测试,正则生成" />
@@ -19,6 +19,16 @@
   <meta name="format-detection" content="email=no" />
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="正则表达式可视化-Visual Regexp" />
+  <meta property="og:description" content="在线测试、学习、构建正则表达式" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="正则表达式可视化-Visual Regexp" />
+  <meta name="twitter:description" content="在线测试、学习、构建正则表达式" />
 </head>
 
 <body>
@@ -116,7 +126,7 @@
             <textarea></textarea>
           </span>"; //输入要匹配的字符串
         </p>
-        <p>var regex = <span id="logRegExpression"></span>;</p>
+        <p>var regex = <span id="logRegExpression"></span><button class="copyRegexBtn" id="copyRegexBtn" title="复制正则表达式">📋</button>;</p>
         <p class="logReplacementSec">var replacement = "<input class="logReplacementInput" type="text"
             id="logReplacementInput">"</p>
         <p>

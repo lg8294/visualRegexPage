@@ -1,18 +1,36 @@
 import predefinedRegs from "./predefined";
 import { parseParam, param, pick } from "relax-utils";
 
-// 获取前缀列表
+// ============================================================
+// 字符集常量
+// ============================================================
+
+/** ASCII 字符集定义 */
+const CHARSET = {
+  // A-Z: ASCII 65-90 (26 个字母，从 Z 降到 A)
+  UPPER_ALPHA: { start: 65, length: 26 },
+  // a-z: ASCII 97-122 (26 个字母，从 z 降到 a)
+  LOWER_ALPHA: { start: 97, length: 26 },
+  // 特殊字符：数字 + 常用符号，用于前缀编码
+  SPECIAL: "0123456789-_!~<>\"'",
+};
+
+/**
+ * 获取前缀列表
+ * 前缀用于压缩编码：查找一个不在正则表达式源码中的字符作为编码前缀
+ * 生成顺序：Z-A, z-a, 0-9, -, _, !, ~, <, >, ", '
+ */
 function getPrefixList() {
   let literal = "";
-  // literal 加上 a-z A-Z
-  [65, 97].forEach((start) => {
-    let end = start + 26;
-    while (--end >= start) {
-      literal += String.fromCharCode(end);
+
+  // 添加 A-Z 和 a-z（逆序：Z→A, z→a）
+  [CHARSET.UPPER_ALPHA, CHARSET.LOWER_ALPHA].forEach(({ start, length }) => {
+    for (let i = start + length - 1; i >= start; i--) {
+      literal += String.fromCharCode(i);
     }
   });
 
-  literal += `0123456789-_!~<>"'`;
+  literal += CHARSET.SPECIAL;
   return literal.split("");
 }
 
@@ -82,31 +100,28 @@ let hashObj;
 
 // 获取初始哈希值
 function getInitHash() {
-  // 如果hashObj不存在
   if (!hashObj) {
     try {
-      // 将location.hash中的#号替换为空，并将结果赋值给hashObj
       hashObj = parseParam(location.hash.replace(/^#/, ""));
     } catch (e) {
-      // 如果出现异常，则打印异常信息
-      console.log("parse param error:", e);
       hashObj = {};
     }
-    // 如果hashObj.flags不存在，则将hashObj.flags赋值为空字符串
-    hashObj.flags === undefined && (hashObj.flags = "");
-    // 如果hashObj.match不存在，则将hashObj.match赋值为空字符串
-    hashObj.match === undefined && (hashObj.match = "");
-    // 如果hashObj.method不存在，则将hashObj.method赋值为空字符串
-    hashObj.method === undefined && (hashObj.method = "");
-    // 如果hashObj.replacement不存在，则将hashObj.replacement赋值为*
-    hashObj.replacement === undefined && (hashObj.replacement = "*");
-    // 如果hashObj.prefix不存在，则将hashObj.prefix赋值为空字符串
-    hashObj.prefix === undefined && (hashObj.prefix = "");
 
-    // 将hashObj.source赋值为decodeSource函数的返回值，参数为hashObj.source或者空字符串，hashObj.prefix.trim()
+    // 使用 Object.assign 统一初始化默认值
+    hashObj = Object.assign(
+      {
+        flags: "",
+        match: "",
+        method: "",
+        replacement: "*",
+        prefix: "",
+      },
+      hashObj
+    );
+
+    // 解码正则表达式源码
     hashObj.source = decodeSource(hashObj.source || "", hashObj.prefix.trim());
   }
-  // 返回hashObj
   return hashObj;
 }
 
@@ -127,7 +142,6 @@ function setHash(obj) {
 
   // 获取参数
   const str = param(pick(hashObj, (key) => hashObj[key]));
-  console.log("setHash", hashObj, str);
 
   // 设置hash
   history.replaceState(null, document.title, "#" + str);
